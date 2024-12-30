@@ -1,0 +1,28 @@
+/* Sidebar container */
+.layout .sidebar {
+  width: 17vw; /* Fixed width for sidebar */
+  background-color: #f4f4f4;
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  overflow-y: auto; 
+}
+
+/* Sidebar menu list */
+.layout .sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Sidebar menu items */
+.layout .sidebar ul li {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect for menu items */
+.layout .sidebar ul li:hover {
+  background-color: #ddd;
+}

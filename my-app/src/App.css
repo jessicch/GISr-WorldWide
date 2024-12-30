@@ -1,0 +1,22 @@
+
+
+/* General layout */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Content layout (Sidebar + Map) */
+.content {
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
