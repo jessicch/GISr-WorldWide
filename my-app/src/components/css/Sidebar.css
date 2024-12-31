@@ -26,3 +26,54 @@
 .layout .sidebar ul li:hover {
   background-color: #ddd;
 }
+
+.feature-extraction-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.feature-popup {
+  position: fixed;
+  top: 10%;
+  right: 10%;
+  width: 300px;
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+}
+
+.popup-header h3 {
+  margin: 0;
+}
+
+.close-popup {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.popup-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popup-content li {
+  margin: 0.5rem 0;
+}
+
