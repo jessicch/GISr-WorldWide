@@ -102,6 +102,7 @@ export const handleShpZipFile = async (zipFile) => {
         };
 
         allLayers.push(layer);
+        console.log(allLayers)
       }
     }
 

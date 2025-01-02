@@ -13,23 +13,41 @@ const Map = ({ layers, onFeatureClick }) => {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [10.4, 63.4],
-      zoom: 12,
+      zoom: 11,
     });
 
     map.on('load', () => {
+
+      const allLayerIds = [];
+    
       layers.forEach((layer) => {
         addLayerToMap(map, layer);
         setLayerVisibility(map, layer);
+
+        allLayerIds.push(`${layer.id}-fill`);
+        allLayerIds.push(`${layer.id}-border`);
       });
+
+      
 
       // Feature Click Extraction
       map.on('click', (e) => {
         const features = map.queryRenderedFeatures(e.point, {
-          layers: layers.map((layer) => layer.id),
+          layers: allLayerIds, 
         });
-
+        
+        // CHATGPT
         if (features.length) {
-          onFeatureClick(features[0].properties);
+          const feature = features[0]; // Get the first feature
+          const popupContent = Object.entries(feature.properties)
+            .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+            .join('<br>');
+    
+          // Show popup at the clicked location
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(`<div style="max-width: 300px;">${popupContent}</div>`)
+            .addTo(map);
         }
       });
     });
