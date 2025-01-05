@@ -3,20 +3,32 @@
 /* General layout */
 .layout {
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  flex-direction: column; /* Stack header and content vertically */
+  height: 100%; /* Full viewport height */
+}
+
+/* Header layout */
+.layout .header {
+  flex: 0 0 auto; /* Ensure header takes only as much space as needed */
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 /* Content layout (Sidebar + Map) */
 .content {
   display: flex;
-  flex: 1;
-  height: 100%;
+  flex: 1; /* Take remaining space after header */
+  height: auto; /* No need to force 100% height */
 }
+
 
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
+
 

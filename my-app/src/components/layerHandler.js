@@ -1,4 +1,5 @@
 export const addLayerToMap = (map, layer) => {
+    console.log(layer)
     if (!map.getSource(layer.id)) {
       map.addSource(layer.id, {
         type: 'geojson',

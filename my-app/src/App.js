@@ -7,13 +7,22 @@ import Sidebar from './components/Sidebar.js';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useState } from 'react';
 
+
 const App = () => {
   const [layers, setLayers] = useState([]); // Array of layer objects
 
   // Handler to add new layers
   const addLayers = (newLayers) => {
-    setLayers((prevLayers) => [...prevLayers, ...newLayers]);
+    setLayers((prevLayers) => {
+      if (Array.isArray(newLayers)) {
+        return [...prevLayers, ...newLayers];
+      } else {
+        // If newLayers is just one object
+        return [...prevLayers, newLayers];
+      }
+    });
   };
+  
 
   // Handler to toggle layer visibility
   const toggleLayerVisibility = (layerId) => {

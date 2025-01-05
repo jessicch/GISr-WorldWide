@@ -22,6 +22,8 @@
   transition: background-color 0.3s;
 }
 
+.layout .sidebar ul input
+
 /* Hover effect for menu items */
 .layout .sidebar ul li:hover {
   background-color: #ddd;
@@ -75,5 +77,46 @@
 
 .popup-content li {
   margin: 0.5rem 0;
+}
+
+
+.buffer-options {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.buffer-options h3 {
+  margin-top: 0;
+}
+
+.buffer-options label {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.buffer-options input,
+.buffer-options select {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.buffer-options button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buffer-options button:hover {
+  background-color: #0056b3;
 }
 

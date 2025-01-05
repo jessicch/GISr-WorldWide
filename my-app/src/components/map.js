@@ -2,7 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import React, { useEffect } from 'react';
 import './css/Map.css';
-import { addLayerToMap, setLayerVisibility } from './layerToggling';
+import { addLayerToMap, setLayerVisibility } from './layerHandler';
 
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiamVzc2ljY2giLCJhIjoiY2xlOGd4NWU4MDYzdjNzbzM3aGk5Ymd2ayJ9.7Ol_MM0V_vQPSIABfqcyXQ';
