@@ -1,6 +1,8 @@
+// src/components/Map.js
+
+import React, { useEffect, useState, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import React, { useEffect, useState, useRef } from 'react';
 import './css/Map.css';
 import { addLayerToMap, setLayerVisibility } from './layerHandler';
 
@@ -8,7 +10,10 @@ import { addLayerToMap, setLayerVisibility } from './layerHandler';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiamVzc2ljY2giLCJhIjoiY2xlOGd4NWU4MDYzdjNzbzM3aGk5Ymd2ayJ9.7Ol_MM0V_vQPSIABfqcyXQ';
+
+const accessToken = 'pk.eyJ1IjoiamVzc2ljY2giLCJhIjoiY2xlOGd4NWU4MDYzdjNzbzM3aGk5Ymd2ayJ9.7Ol_MM0V_vQPSIABfqcyXQ'
+
+mapboxgl.accessToken = accessToken;
 
 const Map = ({ layers, addLayers }) => {
   const [mapInstance, setMapInstance] = useState(null);
@@ -19,16 +24,17 @@ const Map = ({ layers, addLayers }) => {
   const [featureToAdd, setFeatureToAdd] = useState(null);
 
   const drawRef = useRef(null);
+  const mapContainerRef = useRef(null); // Ref for the map container
 
   useEffect(() => {
     const map = new mapboxgl.Map({
-      container: 'map',
+      container: mapContainerRef.current, 
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [10.42, 63.42],
       zoom: 12,
     });
 
-    // Set up for drawing on the map
+    // Set up Mapbox Draw
     const draw = new MapboxDraw({
       displayControlsDefault: false,
       controls: {
@@ -38,7 +44,7 @@ const Map = ({ layers, addLayers }) => {
         trash: true,
       },
     });
-    
+
     map.addControl(draw, 'bottom-left');
     drawRef.current = draw;
 
@@ -49,7 +55,7 @@ const Map = ({ layers, addLayers }) => {
         setLayerVisibility(map, layer);
       });
 
-      // drawing
+      // Handle draw events
       map.on('draw.create', (e) => {
         const feature = e.features[0];
         setFeatureToAdd(feature);
@@ -63,18 +69,18 @@ const Map = ({ layers, addLayers }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Whenever layers change, update the map with any new layers, visibility, or colors
+  // Update layers when `layers` or `mapInstance` changes
   useEffect(() => {
     if (!mapInstance) return;
 
     layers.forEach((layer) => {
-      // If layer is new to the map
+
       if (!mapInstance.getSource(layer.id)) {
         addLayerToMap(mapInstance, layer);
       }
       setLayerVisibility(mapInstance, layer);
 
-      // Update colors of layers!!
+      // Update colors of layers
       if (mapInstance.getLayer(`${layer.id}-fill`)) {
         mapInstance.setPaintProperty(
           `${layer.id}-fill`,
@@ -133,7 +139,7 @@ const Map = ({ layers, addLayers }) => {
 
   return (
     <>
-      <div id="map" className="map" />
+      <div ref={mapContainerRef} className="map" />
 
       {isModalOpen && (
         <div style={overlayStyle}>
@@ -144,11 +150,32 @@ const Map = ({ layers, addLayers }) => {
               value={newLayerName}
               onChange={(e) => setNewLayerName(e.target.value)}
               placeholder="New Layer"
-              style={{ width: '100%' , border: "None"}}
+              style={{ width: '100%', border: 'none' }}
             />
             <div style={{ marginTop: '1em' }}>
-              <button style = {{ color: "white", border: "None", borderRadius: "4px", backgroundColor: "#5a6c4b"}}onClick={handleSaveLayer}>Save</button>
-              <button style = {{marginLeft: '1em', color: "white", border: "None", borderRadius: "4px", backgroundColor: "#5a6c4b" }} onClick={handleCancel}>Cancel</button>
+              <button
+                style={{
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  backgroundColor: '#5a6c4b',
+                }}
+                onClick={handleSaveLayer}
+              >
+                Save
+              </button>
+              <button
+                style={{
+                  marginLeft: '1em',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  backgroundColor: '#5a6c4b',
+                }}
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
@@ -157,7 +184,7 @@ const Map = ({ layers, addLayers }) => {
   );
 };
 
-// Inline styles for the modal, CSS was strange.
+// Inline styles for the modal
 const overlayStyle = {
   position: 'fixed',
   top: 0,
