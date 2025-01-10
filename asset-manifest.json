@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/GISr-WorldWide/static/css/main.ce559d8b.css",
+    "main.js": "/GISr-WorldWide/static/js/main.298c3caa.js",
+    "static/js/488.9c92ff38.chunk.js": "/GISr-WorldWide/static/js/488.9c92ff38.chunk.js",
+    "static/media/gisrwwwhite.png": "/GISr-WorldWide/static/media/gisrwwwhite.3645b764889257721c05.png",
+    "index.html": "/GISr-WorldWide/index.html",
+    "main.ce559d8b.css.map": "/GISr-WorldWide/static/css/main.ce559d8b.css.map",
+    "main.298c3caa.js.map": "/GISr-WorldWide/static/js/main.298c3caa.js.map",
+    "488.9c92ff38.chunk.js.map": "/GISr-WorldWide/static/js/488.9c92ff38.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ce559d8b.css",
+    "static/js/main.298c3caa.js"
+  ]
+}
