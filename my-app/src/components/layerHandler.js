@@ -1,3 +1,4 @@
+// Loads layerobjects onto map! 
 export const addLayerToMap = (map, layer) => {
     console.log(layer)
     if (!map.getSource(layer.id)) {
@@ -8,14 +9,13 @@ export const addLayerToMap = (map, layer) => {
     }
   
     const geometryType = layer.geojson.features[0]?.geometry.type;
-  
     if (geometryType === 'Point' || geometryType === 'MultiPoint') {
       map.addLayer({
-        id: layer.id,
+        id: `${layer.id}-point`,
         type: 'circle',
         source: layer.id,
         paint: {
-          'circle-radius': 5,
+          'circle-radius': 10,
           'circle-color': layer.color || '#FF0000',
         },
       });
@@ -54,20 +54,19 @@ export const addLayerToMap = (map, layer) => {
     }
   };
   
-  export const setLayerVisibility = (map, layer) => {
-    const geometryType = layer.geojson.features[0]?.geometry.type;
-  
-    if (geometryType === 'Polygon' || geometryType === 'MultiPolygon') {
-      if (map.getLayer(`${layer.id}-fill`)) {
-        map.setLayoutProperty(`${layer.id}-fill`, 'visibility', layer.visible ? 'visible' : 'none');
-      }
-      if (map.getLayer(`${layer.id}-border`)) {
-        map.setLayoutProperty(`${layer.id}-border`, 'visibility', layer.visible ? 'visible' : 'none');
-      }
-    } else {
-      if (map.getLayer(layer.id)) {
-        map.setLayoutProperty(layer.id, 'visibility', layer.visible ? 'visible' : 'none');
-      }
+export const setLayerVisibility = (map, layer) => {
+  const geometryType = layer.geojson.features[0]?.geometry.type;
+
+  if (geometryType === 'Polygon' || geometryType === 'MultiPolygon') {
+    if (map.getLayer(`${layer.id}-fill`)) {
+      map.setLayoutProperty(`${layer.id}-fill`, 'visibility', layer.visible ? 'visible' : 'none');
     }
-  };
-  
+    if (map.getLayer(`${layer.id}-border`)) {
+      map.setLayoutProperty(`${layer.id}-border`, 'visibility', layer.visible ? 'visible' : 'none');
+    }
+  } else {
+    if (map.getLayer(layer.id)) {
+      map.setLayoutProperty(layer.id, 'visibility', layer.visible ? 'visible' : 'none');
+    }
+  }
+};

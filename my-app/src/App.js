@@ -33,12 +33,32 @@ const App = () => {
     );
   };
 
+  const updateLayerColor = (layerId, newColor) => {
+    setLayers((prev) =>
+      prev.map((layer) =>
+        layer.id === layerId ? { ...layer, color: newColor } : layer
+      )
+    );
+  };
+
+  const renameLayer = (layerId, newName) => {
+    if (newName){
+    setLayers((prev) =>
+      prev.map((layer) =>
+        layer.id === layerId ? { ...layer, name: newName } : layer
+      )
+    )};
+  };
+
+  
+
+
   return (
     <div className="layout">
       <Header />
       <div className="content">
-        <Sidebar layers={layers} addLayers={addLayers} toggleLayerVisibility={toggleLayerVisibility} />
-        <Map layers={layers} />
+        <Sidebar layers={layers} addLayers={addLayers} toggleLayerVisibility={toggleLayerVisibility} updateLayerColor={updateLayerColor} renameLayer={renameLayer} />
+        <Map layers={layers} addLayers={addLayers} updateLayerColor={updateLayerColor} />
       </div>
     </div>
   );

@@ -1,32 +1,69 @@
-/* Sidebar container */
 .layout .sidebar {
-  width: 17vw; /* Fixed width for sidebar */
-  background-color: #f4f4f4;
+  width: 25vw; 
+  max-height: 87.7vh; 
+  background-color: #ced4c2;
   border-right: 1px solid #ddd;
   padding: 1rem;
   overflow-y: auto; 
 }
 
-/* Sidebar menu list */
+.layout .sidebar::-webkit-scrollbar {
+  width: 8px; 
+}
+
+
+.layout .sidebar::-webkit-scrollbar-thumb {
+  background-color: #888; 
+  border-radius: 4px; 
+}
+
+.layout .sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: #555; 
+}
+
+.layout .sidebar::-webkit-scrollbar-track {
+  background-color: #f4f4f4; /* Background of the scrollbar track */
+}
+
 .layout .sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Sidebar menu items */
 .layout .sidebar ul li {
-  margin: 0.5rem 0;
+  display: flex; 
+  margin: 0.2rem 0;
   padding: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  text-align: left;
+  gap: 0.6rem; 
+}
+
+
+.layout .sidebar ul li .icon {
+  margin-top: 4px;
+  font-size: 35px; 
+  color: #20231d; 
+}
+
+.layout .sidebar ul li:hover {
+  background-color: #afb7a0;
 }
 
 .layout .sidebar ul input
 
-/* Hover effect for menu items */
-.layout .sidebar ul li:hover {
-  background-color: #ddd;
+.layers-list {
+  margin-left: 0.5rem;
+}
+
+.layout .sidebar ul li input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.layout .sidebar ul li input[type="checkbox"]:checked {
+  accent-color: #425142; 
 }
 
 .feature-extraction-section {
@@ -79,26 +116,25 @@
   margin: 0.5rem 0;
 }
 
-
-.buffer-options {
-  margin-top: 1rem;
+.function-options {
+  margin-top: 0.1rem;
   padding: 1rem;
   background-color: #f8f9fa;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.buffer-options h3 {
+.function-options h3 {
   margin-top: 0;
 }
 
-.buffer-options label {
+.function-options label {
   display: block;
   margin: 0.5rem 0;
 }
 
-.buffer-options input,
-.buffer-options select {
+.function-options input,
+.function-options select {
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.5rem;
@@ -106,17 +142,17 @@
   border-radius: 4px;
 }
 
-.buffer-options button {
+.function-options button {
   margin-top: 1rem;
   padding: 0.5rem 1rem;
-  background-color: #007bff;
+  background-color: #5a6c4b;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.buffer-options button:hover {
-  background-color: #0056b3;
+.function-options button:hover {
+  background-color: #38582f;
 }
 

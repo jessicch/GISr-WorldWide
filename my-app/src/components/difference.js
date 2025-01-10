@@ -1,74 +1,69 @@
 import * as turf from '@turf/turf';
 
-/**
- * Compute the difference between two layers (Layer 1 - Layer 2).
- * @param {array} layers - Array of all layers.
- * @param {string} baseLayerId - The ID of the base layer (Layer 1).
- * @param {string} subtractLayerId - The ID of the subtracting layer (Layer 2).
- * @param {string} outputLayerName - Name for the output layer.
- * @returns {object|null} - A new layer containing the difference or null if failed.
- */
+// Removes one polygogonlayer from another using turf's difference. 
 export const computeDifference = (layers, baseLayerId, subtractLayerId, outputLayerName) => {
-  const baseLayer = layers.find((l) => l.id === baseLayerId);
-  const subtractLayer = layers.find((l) => l.id === subtractLayerId);
+const baseLayer = layers.find((l) => l.id === baseLayerId);
+const subtractLayer = layers.find((l) => l.id === subtractLayerId);
 
-  if (!baseLayer) {
+if (!baseLayer) {
     console.error(`Base layer with ID ${baseLayerId} not found.`);
     return null;
-  }
-  if (!subtractLayer) {
+}
+if (!subtractLayer) {
     console.error(`Subtracting layer with ID ${subtractLayerId} not found.`);
     return null;
-  }
+}
 
-  const baseFeatures = baseLayer.geojson.features;
-  const subtractFeatures = subtractLayer.geojson.features;
+const baseFeatures = baseLayer.geojson;
+console.log(baseFeatures)
+const dissolvedBase = turf.union(baseFeatures)
+const subtractFeatures = subtractLayer.geojson.features;
 
-  if (!baseFeatures || baseFeatures.length === 0) {
+if (!baseFeatures || baseFeatures.length === 0) {
     console.warn('No features in the base layer to compute the difference.');
     return null;
-  }
-  if (!subtractFeatures || subtractFeatures.length === 0) {
+}
+if (!subtractFeatures || subtractFeatures.length === 0) {
     console.warn('No features in the subtracting layer, returning base layer unchanged.');
-    return baseLayer; // No subtraction needed
-  }
+    return baseLayer; 
+}
+console.log(subtractFeatures)
 
-  try {
-    // Combine all features into a single FeatureCollection
+try {
+    // Combines all features into a single FeatureCollection, required by turf.
     const combinedFeatureCollection = {
-      type: 'FeatureCollection',
-      features: [...baseFeatures, ...subtractFeatures],
+    type: 'FeatureCollection',
+    features: [dissolvedBase, ...subtractFeatures],
     };
 
-    // Compute the difference using turf.difference
+    // Computes the difference using turf.difference
     const difference = turf.difference(combinedFeatureCollection);
 
     if (!difference) {
-      console.warn('No difference found between the layers.');
-      return null;
+    console.warn('No difference found between the layers.');
+    return null;
     }
 
-    // Create a new layer with the resulting difference
     const safeLayerName = outputLayerName.trim() || 'DifferenceLayer';
 
     return {
-      id: `${safeLayerName}-${Date.now()}`,
-      name: safeLayerName,
-      geojson: {
+    id: `${safeLayerName}-${Date.now()}`,
+    name: safeLayerName,
+    geojson: {
         type: 'FeatureCollection',
         features: [
-          {
+        {
             type: 'Feature',
             geometry: difference.geometry,
-            properties: {}, // Add combined properties if needed
-          },
+            properties: {}, // Logs which layer each part is from.
+        },
         ],
-      },
-      visible: true,
-      color: '#FF5733', // Optional default color for the difference layer
+    },
+    visible: true,
+    color: '#FF5733',
     };
-  } catch (err) {
+} catch (err) {
     console.error('Failed to compute difference:', err);
     return null;
-  }
+}
 };

@@ -1,5 +1,9 @@
 .map {
     flex: 1; 
-    height: 90vh; /* Full viewport height */
+    height: 87.5vh; /* Full viewport height */
+    z-index: 1;
 
   }
+
+
+
